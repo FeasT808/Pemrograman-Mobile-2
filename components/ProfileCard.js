@@ -1,16 +1,27 @@
 // components/ProfileCard.js
-// Presentational component: hanya menampilkan data dari props.
+// Presentational component: kartu profil, kini dilengkapi ikon.
  
 import { StyleSheet, Text, View } from 'react-native';
+import IconCircle from './IconCircle';
+import IconLabel from './IconLabel';
 import { COLORS, SIZES } from '../constants/theme';
  
-export default function ProfileCard({ name, nim, prodi, email }) {
+export default function ProfileCard({ name, nim, prodi, email, phone }) {
   return (
     <View style={styles.card}>
-      <Text style={styles.name}>{name}</Text>
-      <Text style={styles.info}>NIM: {nim}</Text>
-      <Text style={styles.info}>Prodi: {prodi}</Text>
-      <Text style={styles.info}>Email: {email}</Text>
+      <View style={styles.header}>
+        <IconCircle icon="user" diameter={64} size={SIZES.iconLg} />
+        <View style={styles.headerText}>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.prodi}>Program Studi {prodi}</Text>
+        </View>
+      </View>
+ 
+      <View style={styles.divider} />
+ 
+      <IconLabel icon="id-card" label={nim} />
+      <IconLabel icon="envelope" label={email} />
+      <IconLabel icon="phone" label={phone} />
     </View>
   );
 }
@@ -22,16 +33,28 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.border,
     padding: SIZES.padding,
-    gap: 4,
+    gap: 10,
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 14,
+  },
+  headerText: {
+    flex: 1,
+},
   name: {
     fontSize: 20,
     fontWeight: 'bold',
     color: COLORS.dark,
-    marginBottom: 4,
   },
-  info: {
+  prodi: {
     fontSize: 14,
-    color: COLORS.text,
+    color: COLORS.muted,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: COLORS.border,
+    marginVertical: 4,
   },
 });
